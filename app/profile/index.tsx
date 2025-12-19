@@ -1,20 +1,10 @@
-import { Text, View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
+import { Screen } from "@/components/Screen";
+import { Title } from "@/components/Typography";
 
 export default function Profile() {
   return (
-    <View style={styles.container}>
-      <Text>Profile Page</Text>
-    
-    </View>
+    <Screen>
+      <Title>Profile Page</Title>
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "purple",
-  },
-});
