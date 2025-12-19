@@ -1,3 +1,5 @@
+import { useColorScheme } from "react-native";
+
 export const lightTheme = {
   colors: {
     primary: "#5A4FCF",
@@ -74,3 +76,9 @@ export const darkTheme = {
   },
 };
 export const theme = lightTheme;
+
+export function useTheme(){
+  const scheme = useColorScheme();
+  const theme = scheme === "light" ? lightTheme : darkTheme;
+  return theme;
+}
