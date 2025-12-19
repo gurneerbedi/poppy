@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { theme } from "@/theme";
 
 export default function Index() {
   return (
@@ -16,13 +17,13 @@ export default function Index() {
       <View style={styles.card}>
         <TextInput
           placeholder="Email"
-          placeholderTextColor="#999"
+          placeholderTextColor={theme.colors.textMuted}
           style={styles.input}
         />
 
         <TextInput
           placeholder="Password"
-          placeholderTextColor="#999"
+          placeholderTextColor={theme.colors.textMuted}
           secureTextEntry
           style={styles.input}
         />
@@ -47,70 +48,67 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#5A4FCF",
+    backgroundColor: theme.colors.background,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: theme.spacing.lg,
   },
 
   title: {
-    fontSize: 32,
-    fontWeight: "700",
-    color: "#fff",
-    marginBottom: 5,
+    fontSize: theme.fontSize.lg,
+    fontWeight: theme.fontWeight.bold,
+    color: theme.colors.textPrimary,
+    marginBottom: theme.spacing.xs,
   },
 
   subtitle: {
-    fontSize: 16,
-    color: "#E0E0E0",
-    marginBottom: 30,
+    fontSize: theme.fontSize.md,
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.xxl,
   },
 
   card: {
     width: "100%",
     maxWidth: 400,
-    backgroundColor: "#fff",
-    borderRadius: 16,
-    padding: 24,
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 20,
-    elevation: 8,
+    backgroundColor: theme.colors.card,
+    borderRadius: theme.radius.lg,
+    padding: theme.spacing.xl,
+    ...theme.shadow.card,
   },
 
   input: {
     height: 50,
     borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    marginBottom: 15,
+    borderColor: theme.colors.border,
+    borderRadius: theme.radius.md,
+    paddingHorizontal: theme.spacing.md,
+    fontSize: theme.fontSize.md,
+    marginBottom: theme.spacing.md,
   },
 
   button: {
-    backgroundColor: "#5A4FCF",
-    paddingVertical: 14,
-    borderRadius: 10,
+    backgroundColor: theme.colors.primary,
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.radius.md,
     alignItems: "center",
-    marginTop: 10,
+    marginTop: theme.spacing.sm,
   },
 
   buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
+    color: theme.colors.textPrimary,
+    fontSize: theme.fontSize.md,
+    fontWeight: theme.fontWeight.semiBold,
   },
 
   links: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 20,
+    marginTop: theme.spacing.lg,
   },
 
   link: {
-    color: "#5A4FCF",
-    fontSize: 14,
-    fontWeight: "500",
+    color: theme.colors.primary,
+    fontSize: theme.fontSize.sm,
+    fontWeight: theme.fontWeight.medium,
   },
 });
