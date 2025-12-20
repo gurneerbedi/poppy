@@ -1,14 +1,14 @@
 import { useColorScheme } from "react-native";
-
 export const lightTheme = {
   colors: {
-    primary: "#5A4FCF",
-    background: "#5A4FCF",
+    primary: "#6D63FF",        
+    primarySoft: "#ECEBFF",    
+    background: "#F6F5FF",     
     card: "#FFFFFF",
-    textPrimary: "#FFFFFF",
-    textSecondary: "#E0E0E0",
-    textMuted: "#999999",
-    border: "#DDDDDD",
+    textPrimary: "#1B1C2A",
+    textSecondary: "#5E6282",
+    textMuted: "#9EA3C9",
+    border: "#E4E6F7",
     shadow: "#000000",
   },
 
@@ -41,23 +41,23 @@ export const lightTheme = {
 
   shadow: {
     card: {
-      shadowColor: "#000000",
-      shadowOpacity: 0.15,
-      shadowRadius: 20,
-      elevation: 8,
+      shadowColor: "#6D63FF",
+      shadowOpacity: 0.08,
+      shadowRadius: 18,
+      elevation: 6,
     },
   },
 };
-
 export const darkTheme = {
   colors: {
-    primary: "#7C6FF0",
-    background: "#0F1020",
-    card: "#1A1B2E",
+    primary: "#8A7FFF",
+    primarySoft: "#2A2755",
+    background: "#0E1024",
+    card: "#1A1C3A",
     textPrimary: "#FFFFFF",
-    textSecondary: "#B8B8D1",
-    textMuted: "#8A8AA3",
-    border: "#2A2B45",
+    textSecondary: "#C3C6E6",
+    textMuted: "#8C90B8",
+    border: "#2D2F55",
     shadow: "#000000",
   },
 
@@ -69,16 +69,15 @@ export const darkTheme = {
   shadow: {
     card: {
       shadowColor: "#000000",
-      shadowOpacity: 0.4,
-      shadowRadius: 30,
+      shadowOpacity: 0.45,
+      shadowRadius: 32,
       elevation: 10,
     },
   },
 };
-export const theme = lightTheme;
 
-export function useTheme(){
+
+export function useTheme() {
   const scheme = useColorScheme();
-  const theme = scheme === "light" ? lightTheme : darkTheme;
-  return theme;
+  return scheme === "dark" ? darkTheme : lightTheme;
 }
