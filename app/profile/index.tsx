@@ -1,5 +1,4 @@
-import { Screen } from "@/components/Screen";
-import { Title } from "@/components/Typography";
+import { Screen, Title} from "@/components/ui";
 
 export default function Profile() {
   return (

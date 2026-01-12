@@ -10,7 +10,7 @@ type Props = TouchableOpacityProps & {
   title: string;
 };
 
-export function Button({ title, style, ...props }: Props) {
+export default function Button({ title, style, ...props }: Props) {
   const theme = useTheme();
 
   const styles = StyleSheet.create({

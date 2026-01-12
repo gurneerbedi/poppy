@@ -1,10 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Theme, useStyles } from "@/theme";
-import { Input } from "@/components/Input";
-import { Button } from "@/components/Button";
-import { Title, Subtitle } from "@/components/Typography";
-import { AppLink } from "@/components/AppLink";
-import { Screen } from "@/components/Screen";
+import { Input, Button, Title, Subtitle, AppLink, Screen } from "@/components/ui";
+
 
 export default function Index() {
   const { styles } = useStyles(makeStyles);
