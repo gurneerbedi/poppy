@@ -76,8 +76,14 @@ export const darkTheme = {
   },
 };
 
+export type Theme = typeof lightTheme;
 
 export function useTheme() {
   const scheme = useColorScheme();
   return scheme === "dark" ? darkTheme : lightTheme;
+}
+export function useStyles<T>(makeStyles: (theme: Theme) => T){
+  const theme = useTheme()
+  const styles =makeStyles(theme);
+  return {styles, theme};
 }
