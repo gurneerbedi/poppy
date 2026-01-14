@@ -9,33 +9,24 @@ import {
   Screen,
 } from "@/components/ui";
 import { useState } from "react";
-
-type User = { email: string };
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Index() {
   const { styles } = useStyles(makeStyles);
-
-  // Session variable
-  const [user, setUser] = useState<User | null>(null);
+  const { user, login, logout } = useAuth();
 
   // Input states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Login function
-  const login = () => {
+  const handleLogin = () => {
     if (email && password) {
-      setUser({ email });
+      login(email);
       setEmail("");
       setPassword("");
     } else {
       alert("Please enter email and password");
     }
-  };
-
-  // Logout function
-  const logout = () => {
-    setUser(null);
   };
 
   return (
@@ -68,7 +59,7 @@ export default function Index() {
               onChangeText={setPassword}
             />
 
-            <Button title="Login" onPress={login} />
+            <Button title="Login" onPress={handleLogin} />
             <View style={styles.links}>
               <AppLink href="/about">About</AppLink>
             </View>
