@@ -1,10 +1,17 @@
 import { View, StyleSheet } from "react-native";
 import { Theme, useStyles } from "@/theme";
 import { Input, Button, Title, Subtitle, AppLink, Screen } from "@/components/ui";
+import { useState } from "react";
 
 
 export default function Index() {
   const { styles } = useStyles(makeStyles);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const login = () => {
+    console.log(email,password);
+  }
+
 
   return (
     <Screen>
@@ -12,11 +19,21 @@ export default function Index() {
       <Subtitle>Sign in to continue</Subtitle>
 
       <View style={styles.card}>
-        <Input placeholder="Email" keyboardType="email-address" />
+        <Input
+          placeholder="Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-        <Input placeholder="Password" secureTextEntry />
+        <Input
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
 
-        <Button title="login" />
+        <Button title="login"  onPress={login}/>
 
         <View style={styles.links}>
           <AppLink href="/about">About</AppLink>
