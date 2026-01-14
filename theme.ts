@@ -1,9 +1,54 @@
 import { useColorScheme } from "react-native";
-export const lightTheme = {
+export type Theme = {
   colors: {
-    primary: "#6D63FF",        
-    primarySoft: "#ECEBFF",    
-    background: "#F6F5FF",     
+    primary: string;
+    primarySoft: string;
+    background: string;
+    card: string;
+    textPrimary: string;
+    textSecondary: string;
+    textMuted: string;
+    border: string;
+    shadow: string;
+  };
+  spacing: {
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+    xxl: number;
+  };
+  radius: {
+    sm: number;
+    md: number;
+    lg: number;
+  };
+  fontSize: {
+    sm: number;
+    md: number;
+    lg: number;
+  };
+  fontWeight: {
+    medium: "500";
+    semiBold: "600";
+    bold: "700";
+  };
+  shadow: {
+    card: {
+      shadowColor: string;
+      shadowOpacity: number;
+      shadowRadius: number;
+      elevation: number;
+    };
+  };
+};
+
+export const lightTheme: Theme = {
+  colors: {
+    primary: "#6D63FF",
+    primarySoft: "#ECEBFF",
+    background: "#F6F5FF",
     card: "#FFFFFF",
     textPrimary: "#1B1C2A",
     textSecondary: "#5E6282",
@@ -11,34 +56,10 @@ export const lightTheme = {
     border: "#E4E6F7",
     shadow: "#000000",
   },
-
-  spacing: {
-    xs: 5,
-    sm: 10,
-    md: 15,
-    lg: 20,
-    xl: 24,
-    xxl: 30,
-  },
-
-  radius: {
-    sm: 8,
-    md: 10,
-    lg: 16,
-  },
-
-  fontSize: {
-    sm: 14,
-    md: 16,
-    lg: 32,
-  },
-
-  fontWeight: {
-    medium: "500" as const,
-    semiBold: "600" as const,
-    bold: "700" as const,
-  },
-
+  spacing: { xs: 5, sm: 10, md: 15, lg: 20, xl: 24, xxl: 30 },
+  radius: { sm: 8, md: 10, lg: 16 },
+  fontSize: { sm: 14, md: 16, lg: 32 },
+  fontWeight: { medium: "500", semiBold: "600", bold: "700" },
   shadow: {
     card: {
       shadowColor: "#6D63FF",
@@ -48,7 +69,8 @@ export const lightTheme = {
     },
   },
 };
-export const darkTheme = {
+
+export const darkTheme: Theme = {
   colors: {
     primary: "#8A7FFF",
     primarySoft: "#2A2755",
@@ -60,12 +82,10 @@ export const darkTheme = {
     border: "#2D2F55",
     shadow: "#000000",
   },
-
   spacing: lightTheme.spacing,
   radius: lightTheme.radius,
   fontSize: lightTheme.fontSize,
   fontWeight: lightTheme.fontWeight,
-
   shadow: {
     card: {
       shadowColor: "#000000",
@@ -76,7 +96,6 @@ export const darkTheme = {
   },
 };
 
-export type Theme = typeof lightTheme;
 
 export function useTheme() {
   const scheme = useColorScheme();
