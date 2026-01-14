@@ -1,10 +1,19 @@
 import { TextInput, StyleSheet, TextInputProps } from "react-native";
-import { useTheme } from "@/theme";
+import { Theme, useStyles } from "@/theme";
 
 export default function Input(props: TextInputProps) {
-  const theme = useTheme();
+  const { styles, theme } = useStyles(makeStyles);
+  return (
+    <TextInput
+      placeholderTextColor={theme.colors.textMuted}
+      style={styles.input}
+      {...props}
+    />
+  );
+}
 
-  const styles = StyleSheet.create({
+  const makeStyles = (theme: Theme) => 
+    StyleSheet.create({
     input: {
       height: 50,
       borderWidth: 1,
@@ -17,11 +26,4 @@ export default function Input(props: TextInputProps) {
     },
   });
 
-  return (
-    <TextInput
-      placeholderTextColor={theme.colors.textMuted}
-      style={styles.input}
-      {...props}
-    />
-  );
-}
+

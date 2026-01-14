@@ -1,11 +1,15 @@
 import { View, StyleSheet, ViewProps } from "react-native";
-import { useTheme } from "@/theme";
-
+import { Theme, useStyles } from "@/theme";
 
 export default function Screen({ children, style, ...props }: ViewProps) {
-  const theme = useTheme();
-
-  const styles = StyleSheet.create({
+  const { styles } = useStyles(makeStyles);
+  return (
+    <View style={[styles.container, style]} {...props}>
+      {children}
+    </View>
+  );
+}
+  const makeStyles = (theme: Theme) =>StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
@@ -15,9 +19,4 @@ export default function Screen({ children, style, ...props }: ViewProps) {
     },
   });
 
-  return (
-    <View style={[styles.container, style]} {...props}>
-      {children}
-    </View>
-  );
-}
+

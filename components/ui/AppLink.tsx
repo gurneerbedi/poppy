@@ -1,21 +1,20 @@
 import { Text, StyleSheet } from "react-native";
 import { Link, LinkProps } from "expo-router";
-import { useTheme } from "@/theme";
+import {Theme, useStyles} from "@/theme";
 
 export default function AppLink({ children, style, ...props }: LinkProps) {
-  const theme = useTheme();
-
-  const styles = StyleSheet.create({
-    link: {
-      color: theme.colors.primary,
-      fontSize: theme.fontSize.sm,
-      fontWeight: theme.fontWeight.medium,
-    },
-  });
-
+  const { styles } = useStyles(makeStyle);
   return (
     <Link {...props}>
       <Text style={[styles.link, style]}>{children}</Text>
     </Link>
   );
 }
+  const makeStyle = (theme:Theme) =>
+    StyleSheet.create({ link: {
+      color: theme.colors.primary,
+      fontSize: theme.fontSize.sm,
+      fontWeight: theme.fontWeight.medium,
+    },});
+
+

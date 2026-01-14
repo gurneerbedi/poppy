@@ -4,16 +4,22 @@ import {
   StyleSheet,
   TouchableOpacityProps,
 } from "react-native";
-import { useTheme } from "@/theme";
+import { Theme, useStyles } from "@/theme";
 
 type Props = TouchableOpacityProps & {
   title: string;
 };
 
 export default function Button({ title, style, ...props }: Props) {
-  const theme = useTheme();
+  const { styles } = useStyles(makeStyles);
+  return (
+    <TouchableOpacity style={[styles.button, style]} {...props}>
+      <Text style={styles.text}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
 
-  const styles = StyleSheet.create({
+  const makeStyles  = (theme: Theme) => StyleSheet.create({
     button: {
       backgroundColor: theme.colors.primary,
       paddingVertical: theme.spacing.md,
@@ -28,9 +34,4 @@ export default function Button({ title, style, ...props }: Props) {
     },
   });
 
-  return (
-    <TouchableOpacity style={[styles.button, style]} {...props}>
-      <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
-  );
-}
+ 
