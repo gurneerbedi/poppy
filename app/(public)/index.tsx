@@ -13,7 +13,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 export default function Index() {
   const { styles } = useStyles(makeStyles);
-  const { user, login, logout } = useAuth();
+  const { login } = useAuth();
 
   // Input states
   const [email, setEmail] = useState("");
@@ -35,36 +35,24 @@ export default function Index() {
       <Subtitle>Sign in to continue</Subtitle>
 
       <View style={styles.card}>
-        {user ? (
-          <>
-            <Title>Hello, {user.email}!</Title>
-            <Button title="Logout" onPress={logout} />
-            <View style={styles.links}>
-              <AppLink href="/profile">Profile</AppLink>
-            </View>
-          </>
-        ) : (
-          <>
-            <Input
-              placeholder="Email"
-              keyboardType="email-address"
-              value={email}
-              onChangeText={setEmail}
-            />
+        <Input
+          placeholder="Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-            <Input
-              placeholder="Password"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-            />
+        <Input
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
 
-            <Button title="Login" onPress={handleLogin} />
-            <View style={styles.links}>
-              <AppLink href="/about">About</AppLink>
-            </View>
-          </>
-        )}
+        <Button title="Login" onPress={handleLogin} />
+        <View style={styles.links}>
+          <AppLink href="/about">About</AppLink>
+        </View>
       </View>
     </Screen>
   );

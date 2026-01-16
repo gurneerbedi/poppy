@@ -1,10 +1,24 @@
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <Stack />
+      <App />
     </AuthProvider>
   );
 }
+
+const App = () => {
+  const { user } = useAuth();
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={!user}>
+        <Stack.Screen name="(public)"></Stack.Screen>
+      </Stack.Protected>
+      <Stack.Protected guard={!!user}>
+        <Stack.Screen name="(app)"></Stack.Screen>
+      </Stack.Protected>
+    </Stack>
+  );
+};
