@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { Theme, useStyles } from "@/theme";
 import {
   Input,
@@ -18,14 +18,24 @@ export default function Index() {
   // Input states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    if (email && password) {
-      login(email);
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please enter email and password");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await login(email, password);
       setEmail("");
       setPassword("");
-    } else {
-      alert("Please enter email and password");
+      Alert.alert("Success", "Logged in successfully");
+    } catch (error: any) {
+      Alert.alert("Login Failed", error.message || "An error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,7 +59,12 @@ export default function Index() {
           onChangeText={setPassword}
         />
 
-        <Button title="Login" onPress={handleLogin} />
+        <Button
+          title={loading ? "Logging in..." : "Login"}
+          onPress={handleLogin}
+          disabled={loading}
+        />
+
         <View style={styles.links}>
           <AppLink href="/about">About</AppLink>
         </View>
