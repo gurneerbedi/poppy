@@ -1,38 +1,33 @@
 import { View, StyleSheet, Alert } from "react-native";
 import { Theme, useStyles } from "@/theme";
-import {
-  Input,
-  Button,
-  Title,
-  Subtitle,
-  AppLink,
-  Screen,
-} from "@/components/ui";
+import { Input, Button, Title, Subtitle, Screen } from "@/components/ui";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
-export default function Index() {
+export default function SignUp() {
   const { styles } = useStyles(makeStyles);
-  const { login } = useAuth();
+  const { signUp } = useAuth();
 
   // Input states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
-    if (!email || !password) {
-      Alert.alert("Error", "Please enter email and password");
+  const handleSignUp = async () => {
+    if (!email || !password || !name) {
+      Alert.alert("Error", "Please enter email, name and password");
       return;
     }
 
     setLoading(true);
     try {
-      await login(email, password);
+      await signUp(email, password, name);
       setEmail("");
       setPassword("");
+      setName("");
     } catch (error: any) {
-      Alert.alert("Login Failed", error.message || "An error occurred");
+      Alert.alert("Sign-Up Failed", error.message || "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -41,7 +36,7 @@ export default function Index() {
   return (
     <Screen>
       <Title>Welcome Back</Title>
-      <Subtitle>Sign in to continue</Subtitle>
+      <Subtitle>Sign up to continue</Subtitle>
 
       <View style={styles.card}>
         <Input
@@ -57,17 +52,13 @@ export default function Index() {
           value={password}
           onChangeText={setPassword}
         />
+        <Input placeholder="Name" value={name} onChangeText={setName} />
 
         <Button
-          title={loading ? "Logging in..." : "Login"}
-          onPress={handleLogin}
+          title={loading ? "Signing in..." : "Sign up"}
+          onPress={handleSignUp}
           disabled={loading}
         />
-
-        <View style={styles.links}>
-          <AppLink href="/about">About</AppLink>
-          <AppLink href="/signup">Sign Up</AppLink>
-        </View>
       </View>
     </Screen>
   );
@@ -82,11 +73,6 @@ function makeStyles(theme: Theme) {
       borderRadius: theme.radius.lg,
       padding: theme.spacing.xl,
       ...theme.shadow.card,
-    },
-    links: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      marginTop: theme.spacing.lg,
     },
   });
 }

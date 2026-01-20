@@ -15,8 +15,8 @@ const ExpoSecureStoreAdapter = {
 
 export const supabase = createClient(
   
-  "https://zccimheabnklrnapnnxz.supabase.co",
-  "sb_publishable_QjgPwR6zV0XBS-o3eq57KA_w2QS1ggu",
+  "https://pkqifbydnxerspuyoppg.supabase.co",
+  "sb_publishable_GTGBf6LcSxWeo7ZMg_YnXg_Wm-9XWbV",
   {
     auth: {
       storage: ExpoSecureStoreAdapter,

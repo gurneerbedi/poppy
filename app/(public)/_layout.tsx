@@ -7,6 +7,7 @@ export default function PublicLayout() {
         options={{ title: "Home", headerShown: false }}
       />
       <Stack.Screen name="about" options={{ title: "About" }} />
+      <Stack.Screen name="signup" options={{ title: "Sign Up" }} />
     </Stack>
   );
 }
