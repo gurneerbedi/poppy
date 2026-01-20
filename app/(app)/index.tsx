@@ -12,7 +12,7 @@ export default function Index() {
     <Screen>
       <Title>Welcome Back</Title>
       <View style={styles.card}>
-        <Title>Hello, {user!.email}!</Title>
+        <Title>Hello, {user!.name}!</Title>
         <Button title="Logout" onPress={logout} />
         <View style={styles.links}>
           <AppLink href="/profile">Profile</AppLink>

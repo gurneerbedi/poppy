@@ -7,7 +7,7 @@ import {
 } from "react";
 import { supabase } from "@/lib/supabase";
 
-type User = { email: string };
+type User = { email: string; name: string };
 
 type AuthContextType = {
   user: User | null;
@@ -26,8 +26,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         console.log(event, !!session);
+        console.log(session?.user);
         if (session?.user) {
-          setUser({ email: session.user.email! });
+          setUser({
+            email: session.user.email!,
+            name: session.user.user_metadata.display_name,
+          });
         } else {
           setUser(null);
         }
