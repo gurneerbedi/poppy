@@ -14,19 +14,20 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   signUp: (email: string, password: string, name: string) => Promise<void>;
+  initializing: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
     // Listen to auth state changes
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         console.log(event, !!session);
-        console.log(session?.user);
         if (session?.user) {
           setUser({
             email: session.user.email!,
@@ -35,6 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else {
           setUser(null);
         }
+        setInitializing(false);
       }
     );
 
@@ -70,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, signUp }}>
+    <AuthContext.Provider value={{ user, login, logout, signUp, initializing }}>
       {children}
     </AuthContext.Provider>
   );
