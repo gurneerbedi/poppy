@@ -52,7 +52,12 @@ export default function SignUp() {
           value={password}
           onChangeText={setPassword}
         />
-        <Input placeholder="Name" value={name} onChangeText={setName} />
+        <Input
+          placeholder="Name"
+          value={name}
+          onChangeText={setName}
+          autoCorrect={false}
+        />
 
         <Button
           title={loading ? "Signing in..." : "Sign up"}

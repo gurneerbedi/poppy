@@ -10,6 +10,7 @@ import {
 } from "@/components/ui";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
 
 export default function Index() {
   const { styles } = useStyles(makeStyles);
@@ -38,6 +39,12 @@ export default function Index() {
     }
   };
 
+  const fetchMovies = async () => {
+    const { data, error } = await supabase.from("movies").select();
+    console.log(data);
+    if (error) console.log(error);
+  };
+
   return (
     <Screen>
       <Title>Welcome Back</Title>
@@ -63,6 +70,7 @@ export default function Index() {
           onPress={handleLogin}
           disabled={loading}
         />
+        <Button title="fetchmovies" onPress={fetchMovies} />
 
         <View style={styles.links}>
           <AppLink href="/about">About</AppLink>
