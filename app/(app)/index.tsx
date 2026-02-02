@@ -9,9 +9,8 @@ export default function Index() {
   const { styles } = useStyles(makeStyles);
   const { user, logout } = useAuth();
   const addMovies = async () => {
-    const { data, error } = await supabase
-      .from("movies")
-      .insert([
+    try {
+      const { error } = await supabase.from("movies").insert([
         {
           name: "The Empire Strikes Back",
           description:
@@ -22,10 +21,11 @@ export default function Index() {
           description:
             "After a daring mission to rescue Han Solo from Jabba the Hutt, the Rebels dispatch to Endor to destroy the second Death Star.",
         },
-      ])
-      .select();
-    console.log(data);
-    if (error) console.log(error);
+      ]);
+      if (error) throw error;
+    } catch (e) {
+      console.error("add movie error", e);
+    }
   };
 
   const fetchMovies = async () => {

@@ -27,16 +27,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Listen to auth state changes
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log(event, !!session);
-        if (session?.user) {
-          setUser({
-            email: session.user.email!,
-            name: session.user.user_metadata.display_name,
-          });
-        } else {
-          setUser(null);
-        }
-        setInitializing(false);
+        setTimeout(async () => {
+          console.log(event, !!session);
+          if (session?.user) {
+            const { data } = await supabase
+              .from("users")
+              .select()
+              .eq("id", session.user.id)
+              .single();
+            console.log("public user", data);
+            setUser({
+              email: session.user.email!,
+              name: session.user.user_metadata.display_name,
+            });
+          } else {
+            setUser(null);
+          }
+          setInitializing(false);
+        });
       }
     );
 
@@ -59,7 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signUp = async (email: string, password: string, name: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -69,6 +77,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
     });
     if (error) throw error;
+
+    if (data.user) {
+      const { error } = await supabase.from("users").insert({
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.user_metadata.display_name,
+      });
+      if (error) throw error;
+    }
   };
 
   return (

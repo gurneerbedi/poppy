@@ -17,8 +17,8 @@ export default function Index() {
   const { login } = useAuth();
 
   // Input states
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("g@bedi.com");
+  const [password, setPassword] = useState("123123");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
