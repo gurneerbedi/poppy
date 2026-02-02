@@ -86,3 +86,35 @@ create policy "Users can delete own profile" on public.users for delete to authe
         select auth.uid ()
     ) = id
 );
+
+-- Ensure columns exist
+alter table public.users
+add column if not exists email text unique,
+add column if not exists name text;
+
+-- Function: create profile on signup
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  insert into public.users (id, email, name)
+  values (
+    new.id,
+    new.email,
+    new.raw_user_meta_data->>'display_name'
+  );
+
+  return new;
+end;
+$$;
+
+-- Trigger: fire after auth user is created
+drop trigger if exists on_auth_user_created on auth.users;
+
+create trigger on_auth_user_created
+after insert on auth.users
+for each row
+execute procedure public.handle_new_user();
