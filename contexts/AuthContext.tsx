@@ -6,8 +6,7 @@ import {
   ReactNode,
 } from "react";
 import { supabase } from "@/lib/supabase";
-
-type User = { email: string; name: string };
+import { User } from "@/lib/types";
 
 type AuthContextType = {
   user: User | null;
@@ -30,16 +29,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setTimeout(async () => {
           console.log(event, !!session);
           if (session?.user) {
-            const { data } = await supabase
+            const { data: user } = await supabase
               .from("users")
               .select()
               .eq("id", session.user.id)
               .single();
-            console.log("public user", data);
-            setUser({
-              email: session.user.email!,
-              name: session.user.user_metadata.display_name,
-            });
+            console.log("public user", user);
+            setUser(user);
           } else {
             setUser(null);
           }
