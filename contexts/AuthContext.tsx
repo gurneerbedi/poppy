@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from "react";
 import { supabase } from "@/lib/supabase";
-import { User } from "@/lib/types";
+import { User } from "@/db/types";
 
 type AuthContextType = {
   user: User | null;
