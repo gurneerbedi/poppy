@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { Movie } from "./types";
+import { Movie, MovieInsert } from "./types";
 
 export async function fetchMovies() {
   const { data, error } = await supabase.from("movies").select<"*", Movie>();
@@ -7,7 +7,7 @@ export async function fetchMovies() {
   return data;
 }
 
-export async function insertMovie(movie: any) {
+export async function insertMovie(movie: MovieInsert) {
   const { error } = await supabase.from("movies").insert(movie);
   if (error) throw error;
 }

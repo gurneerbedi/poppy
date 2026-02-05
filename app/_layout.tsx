@@ -2,6 +2,9 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
 SplashScreen.setOptions({
   duration: 250,
@@ -10,9 +13,11 @@ SplashScreen.setOptions({
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 
