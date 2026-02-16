@@ -14,28 +14,13 @@ alter table movies enable row level security;
 
 -- RLS policies for authenticated users only
 
--- SELECT
-create policy "Authenticated can read movies" on movies for
-select to authenticated using (true);
-
--- INSERT
-create policy "Authenticated can insert movies" on movies for
-insert
-    to authenticated
-with
-    check (true);
-
--- UPDATE
-create policy "Authenticated can update movies" on movies for
-update to authenticated using (true);
-
--- DELETE
-create policy "Authenticated can delete movies" on movies for delete to authenticated using (true);
+-- ALL
+create policy "Authenticated can do all" on movies for all to authenticated using (true);
 
 -- Create users table linked to auth.users
 create table public.users (
     id uuid primary key references auth.users (id) on delete cascade,
-    name text,
+    name text not null,
     email text not null,
     created_at timestamptz not null default now()
 );
@@ -54,43 +39,6 @@ select to authenticated using (
             select auth.uid ()
         ) = id
     );
-
--- INSERT
-create policy "Users can insert own profile" on public.users for
-insert
-    to authenticated
-with
-    check (
-        (
-            select auth.uid ()
-        ) = id
-    );
-
--- UPDATE
-create policy "Users can update own profile" on public.users for
-update to authenticated using (
-    (
-        select auth.uid ()
-    ) = id
-)
-with
-    check (
-        (
-            select auth.uid ()
-        ) = id
-    );
-
--- DELETE
-create policy "Users can delete own profile" on public.users for delete to authenticated using (
-    (
-        select auth.uid ()
-    ) = id
-);
-
--- Ensure columns exist
-alter table public.users
-add column if not exists email text unique,
-add column if not exists name text;
 
 -- Function: create profile on signup
 create or replace function public.handle_new_user()
